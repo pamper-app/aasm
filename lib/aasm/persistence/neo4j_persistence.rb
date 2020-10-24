@@ -30,6 +30,10 @@ module AASM
           write_attribute(name, value)
         end
 
+        def aasm_transaction(requires_new, requires_lock)
+          yield
+        end
+
         def aasm_ensure_initial_state
           AASM::StateMachineStore.fetch(self.class, true).machine_names.each do |state_machine_name|
             if aasm_column_is_blank?(state_machine_name)
